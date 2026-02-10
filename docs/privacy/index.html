@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — ClearChat</title>
+  <meta name="description" content="ClearChat privacy policy. We collect zero personal data. Everything stays on your device.">
+  <meta property="og:title" content="Privacy Policy — ClearChat">
+  <meta property="og:description" content="ClearChat collects zero personal data. No tracking, no analytics, no external servers.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --emerald: #10B981;
+      --emerald-dark: #059669;
+      --emerald-glow: rgba(16, 185, 129, 0.15);
+      --bg: #05080F;
+      --bg-elevated: #0A0F1C;
+      --text: #E8ECF4;
+      --text-dim: #7A8BA8;
+      --text-faint: #3D4B63;
+      --serif: 'Instrument Serif', Georgia, serif;
+      --sans: 'Outfit', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Noise texture overlay ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ─── Navigation ─── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      backdrop-filter: blur(20px);
+      background: rgba(5, 8, 15, 0.7);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: all 0.3s;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-icon {
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, var(--emerald), var(--emerald-dark));
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: white;
+      box-shadow: 0 0 16px var(--emerald-glow);
+    }
+
+    .nav-name {
+      font-family: var(--sans);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 400;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      background: var(--emerald) !important;
+      color: #fff !important;
+      padding: 8px 20px !important;
+      border-radius: 8px;
+      font-weight: 600 !important;
+      font-size: 13px !important;
+      transition: transform 0.2s, box-shadow 0.2s !important;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px var(--emerald-glow);
+    }
+
+    /* ─── Page Content ─── */
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 140px 24px 80px;
+    }
+
+    .page-eyebrow {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--emerald);
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .page h1 {
+      font-family: var(--serif);
+      font-size: clamp(36px, 6vw, 56px);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .page-updated {
+      font-size: 14px;
+      color: var(--text-faint);
+      margin-bottom: 48px;
+    }
+
+    .policy-section {
+      margin-bottom: 48px;
+    }
+
+    .policy-section h2 {
+      font-family: var(--serif);
+      font-size: 28px;
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .policy-section p {
+      font-size: 16px;
+      color: var(--text-dim);
+      line-height: 1.8;
+      font-weight: 300;
+      margin-bottom: 16px;
+    }
+
+    .policy-section ul {
+      list-style: none;
+      margin-bottom: 16px;
+    }
+
+    .policy-section li {
+      position: relative;
+      padding-left: 20px;
+      font-size: 16px;
+      color: var(--text-dim);
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    .policy-section li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 12px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--emerald);
+      opacity: 0.6;
+    }
+
+    .policy-section a {
+      color: var(--emerald);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .policy-section a:hover {
+      color: var(--emerald-dark);
+      text-decoration: underline;
+    }
+
+    .policy-section code {
+      font-size: 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 2px 7px;
+      border-radius: 5px;
+      color: var(--text);
+    }
+
+    .highlight-box {
+      background: rgba(16,185,129,0.04);
+      border: 1px solid rgba(16,185,129,0.15);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+
+    .highlight-box p {
+      color: var(--text);
+      font-weight: 400;
+      margin-bottom: 0;
+    }
+
+    /* ─── Divider ─── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+      margin: 48px 0;
+    }
+
+    /* ─── Footer ─── */
+    footer {
+      padding: 40px 24px;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      text-align: center;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-copy {
+      font-size: 13px;
+      color: var(--text-faint);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      color: var(--text-faint);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--text-dim); }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .footer-inner { flex-direction: column; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/clearchat-extension/" class="nav-brand">
+      <div class="nav-icon">✦</div>
+      <span class="nav-name">ClearChat</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/clearchat-extension/#features">Features</a></li>
+      <li><a href="/clearchat-extension/#roadmap">Roadmap</a></li>
+      <li><a href="https://github.com/clearchat/extension" target="_blank">GitHub</a></li>
+      <li><a href="/clearchat-extension/#install" class="nav-cta">Add to Chrome — Free</a></li>
+    </ul>
+  </nav>
+
+  <main class="page">
+    <div class="page-eyebrow">Legal</div>
+    <h1>Privacy Policy</h1>
+    <p class="page-updated">Effective February 2026</p>
+
+    <div class="highlight-box">
+      <p>ClearChat collects zero personal data. No browsing history, no conversation content, no identifiers. Everything stays on your device.</p>
+    </div>
+
+    <section class="policy-section">
+      <h2>Data Collection</h2>
+      <p>ClearChat does not collect, transmit, or store any personal data whatsoever. The extension has no analytics, no telemetry, no user accounts, and no tracking of any kind.</p>
+      <p>Specifically, ClearChat never accesses or records:</p>
+      <ul>
+        <li>Your browsing history or browsing activity</li>
+        <li>Your ChatGPT conversation content or prompts</li>
+        <li>Personal identifiers such as name, email, or IP address</li>
+        <li>Cookies, authentication tokens, or session data</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="policy-section">
+      <h2>Local Storage</h2>
+      <p>ClearChat stores a small amount of data locally on your device using <code>chrome.storage.local</code>. This data never leaves your browser and is not accessible to ClearChat or any third party. The stored data includes:</p>
+      <ul>
+        <li>Your enabled/disabled toggle preference</li>
+        <li>Ad block statistics: a total count and daily counts for the past 30 days</li>
+      </ul>
+      <p>You can clear this data at any time by removing the extension or clearing extension data in your browser settings.</p>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="policy-section">
+      <h2>Permissions</h2>
+      <p>ClearChat requests the minimum permissions necessary to function:</p>
+      <ul>
+        <li><code>storage</code> — Save your preferences and ad block statistics locally on your device</li>
+        <li><code>activeTab</code> — Detect and remove ads on the currently active ChatGPT tab</li>
+        <li>Host access limited to <code>chat.openai.com</code> and <code>chatgpt.com</code> — The extension only runs on ChatGPT pages and cannot access any other websites</li>
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="policy-section">
+      <h2>External Connections</h2>
+      <p>ClearChat makes zero external network requests. There are no analytics services, no remote servers, no third-party SDKs, and no outbound connections of any kind. All ad detection and removal processing happens entirely on your device.</p>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="policy-section">
+      <h2>Updates</h2>
+      <p>Ad detection pattern updates are delivered exclusively through extension updates published to the Chrome Web Store. ClearChat does not fetch patterns, configurations, or any other data from remote servers at runtime.</p>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="policy-section">
+      <h2>Open Source</h2>
+      <p>ClearChat is fully open source under the MIT license. The complete source code is available on <a href="https://github.com/clearchat/extension" target="_blank">GitHub</a> for anyone to audit, review, or contribute to. What you see in the source code is exactly what runs in your browser.</p>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="policy-section">
+      <h2>Contact</h2>
+      <p>If you have questions about this privacy policy or the extension's behavior, please open an issue on our <a href="https://github.com/clearchat/extension/issues" target="_blank">GitHub repository</a>.</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-copy">&copy; 2026 ClearChat. Open source under MIT license.</div>
+      <ul class="footer-links">
+        <li><a href="https://github.com/clearchat/extension" target="_blank">GitHub</a></li>
+        <li><a href="/clearchat-extension/privacy">Privacy</a></li>
+        <li><a href="#">Terms</a></li>
+      </ul>
+    </div>
+  </footer>
+
+</body>
+</html>
