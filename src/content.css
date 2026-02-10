@@ -1,0 +1,13 @@
+/* ClearChat content styles for hiding detected ad elements. */
+
+.clearchat-hidden {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}

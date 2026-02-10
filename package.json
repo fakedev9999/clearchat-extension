@@ -1,0 +1,30 @@
+{
+  "name": "clearchat-extension",
+  "version": "1.0.0",
+  "description": "Remove sponsored ads from ChatGPT. Ad-free AI experience.",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build.js",
+    "package": "node scripts/package.js",
+    "lint": "eslint src/ --ext .js",
+    "lint:fix": "eslint src/ --ext .js --fix",
+    "validate": "node scripts/validate-manifest.js && node scripts/validate-patterns.js",
+    "dev": "node scripts/build.js --watch",
+    "release": "node scripts/release.js"
+  },
+  "devDependencies": {
+    "archiver": "^7.0.0",
+    "chokidar": "^3.6.0",
+    "eslint": "^9.0.0",
+    "fs-extra": "^11.2.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clearchat/extension.git"
+  },
+  "license": "MIT",
+  "author": "ClearChat Team"
+}

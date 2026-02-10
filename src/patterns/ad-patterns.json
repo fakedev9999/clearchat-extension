@@ -1,0 +1,40 @@
+{
+  "version": "1.0.0",
+  "updated_at": "2026-02-10T00:00:00Z",
+  "description": "ClearChat ad detection patterns for ChatGPT sponsored content.",
+  "text_indicators": [
+    "Sponsored",
+    "sponsored",
+    "SPONSORED",
+    "Ad",
+    "광고",
+    "スポンサー",
+    "Gesponsert",
+    "Sponsorisé",
+    "Patrocinado"
+  ],
+  "selector_patterns": [
+    "[data-testid*=\"sponsor\"]",
+    "[data-testid*=\"ad-\"]",
+    "[data-testid*=\"promoted\"]",
+    "[class*=\"sponsor\"]",
+    "[class*=\"promoted\"]",
+    "[class*=\"ad-block\"]",
+    "[class*=\"ad-container\"]",
+    "[class*=\"advertisement\"]",
+    "[aria-label*=\"Sponsored\"]",
+    "[aria-label*=\"sponsored\"]",
+    "[aria-label*=\"Advertisement\"]"
+  ],
+  "product_card_patterns": {
+    "price_regex": "\\$\\d+\\.\\d{2}",
+    "stock_text": ["In stock", "재고 있음", "在庫あり"],
+    "require_sponsored_text": true,
+    "require_image_or_price": true
+  },
+  "exclusion_selectors": [
+    "[data-testid=\"conversation-turn\"]",
+    "[role=\"main\"]",
+    "main"
+  ]
+}

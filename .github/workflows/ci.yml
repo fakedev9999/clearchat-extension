@@ -1,0 +1,125 @@
+# CI/CD pipeline for ClearChat extension.
+# Handles linting, building, packaging, and Chrome Web Store deployment.
+
+name: CI/CD
+
+on:
+  push:
+    branches: [main, develop]
+    tags: ['v*']
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    name: Lint & Validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Validate manifest.json schema
+        run: node scripts/validate-manifest.js
+
+      - name: Validate pattern config format
+        run: node scripts/validate-patterns.js
+
+  build:
+    name: Build & Package
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build extension
+        run: npm run build
+
+      - name: Package as zip
+        run: npm run package
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: clearchat-extension-${{ github.sha }}
+          path: dist/clearchat-extension.zip
+
+  # Deploy to Chrome Web Store on version tag pushes.
+  deploy-chrome:
+    name: Deploy to Chrome Web Store
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    environment: chrome-web-store
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build and package
+        run: |
+          npm run build
+          npm run package
+
+      - name: Upload to Chrome Web Store
+        uses: mnao305/chrome-extension-upload@v5.0.0
+        with:
+          file-path: dist/clearchat-extension.zip
+          extension-id: ${{ secrets.CHROME_EXTENSION_ID }}
+          client-id: ${{ secrets.CHROME_CLIENT_ID }}
+          client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
+          refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
+          publish: true
+
+  # Deploy updated patterns to CDN without a full extension release.
+  deploy-patterns:
+    name: Deploy Pattern Update
+    if: |
+      github.ref == 'refs/heads/main' &&
+      contains(github.event.head_commit.message, '[patterns]')
+    runs-on: ubuntu-latest
+    environment: cdn
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate pattern config
+        run: node scripts/validate-patterns.js
+
+      - name: Deploy patterns to CDN
+        run: |
+          aws s3 cp src/patterns/ad-patterns.json \
+            s3://${{ secrets.CDN_BUCKET }}/patterns/latest.json \
+            --cache-control "max-age=300"
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} \
+            --paths "/patterns/*"
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-east-1
