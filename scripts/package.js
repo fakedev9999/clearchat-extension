@@ -5,7 +5,7 @@
 
 const fs = require("fs");
 const path = require("path");
-const archiver = require("archiver");
+const { execSync } = require("child_process");
 
 const DIST = path.join(__dirname, "..", "dist", "extension");
 const OUTPUT = path.join(__dirname, "..", "dist", "clearchat-extension.zip");
@@ -16,18 +16,12 @@ if (!fs.existsSync(DIST)) {
   process.exit(1);
 }
 
-const output = fs.createWriteStream(OUTPUT);
-const archive = archiver("zip", { zlib: { level: 9 } });
+// Remove old zip if it exists.
+if (fs.existsSync(OUTPUT)) {
+  fs.unlinkSync(OUTPUT);
+}
 
-output.on("close", () => {
-  const sizeKB = (archive.pointer() / 1024).toFixed(1);
-  console.log(`Package created: dist/clearchat-extension.zip (${sizeKB} KB)`);
-});
+execSync(`cd "${DIST}" && zip -r "${OUTPUT}" .`, { stdio: "pipe" });
 
-archive.on("error", (err) => {
-  throw err;
-});
-
-archive.pipe(output);
-archive.directory(DIST, false);
-archive.finalize();
+const sizeKB = (fs.statSync(OUTPUT).size / 1024).toFixed(1);
+console.log(`Package created: dist/clearchat-extension.zip (${sizeKB} KB)`);
